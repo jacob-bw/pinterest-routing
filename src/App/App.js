@@ -11,6 +11,7 @@ import Home from '../Components/pages/Home/Home';
 import MyNavbar from '../Components/shared/Navbar/Navbar';
 import BoardForm from '../Components/pages/BoardForm/BoardForm';
 import SingleBoard from '../Components/pages/SingleBoard/SingleBoard';
+import PinForm from '../Components/pages/PinForm/PinForm';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === false ? <Component {...props} {...rest}/> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />);
@@ -54,7 +55,7 @@ class App extends React.Component {
             <PrivateRoute path="/board/new" exact component={BoardForm} authed={authed}/>
             <PublicRoute path="/auth" exact component={Auth} authed={authed}/>
             <PrivateRoute path="/board/:boardId" exact component={SingleBoard} authed={authed}/>
-            <PrivateRoute path="/board/:boardId/pin/:pinId" />
+            <PrivateRoute path="/board/:boardId/pin/new" exact component={PinForm} authed={authed}/>
           </Switch>
         </Router>
       </div>

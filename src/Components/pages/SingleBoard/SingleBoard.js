@@ -1,9 +1,11 @@
 import React from 'react';
-import './SingleBoard.scss';
+import { Link } from 'react-router-dom';
+
 import boardData from '../../../helpers/data/boardData';
 import pinData from '../../../helpers/data/pinData';
-
 import Pin from '../../shared/Pin/Pin';
+
+import './SingleBoard.scss';
 
 class SingleBoard extends React.Component {
   state = {
@@ -35,13 +37,15 @@ class SingleBoard extends React.Component {
   }
 
   render() {
+    const { board, pins } = this.state;
     const { boardId } = this.props.match.params;
     return (
       <div className="SingleBoard">
-        <h1>Single Board Page</h1>
-        <h2>Current Board Id is {boardId}</h2>
+        <h1>{board.name}</h1>
+        <p>{board.description}</p>
+        <Link className="btn btn-success" to={`/board/${boardId}/pin/new`}>Add a Pin</Link>
         <div className="pins d-flex flex-wrap">
-          { this.state.pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin}/>)}
+          { pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin}/>)}
         </div>
       </div>
     );
